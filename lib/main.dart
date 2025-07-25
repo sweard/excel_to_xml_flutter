@@ -15,9 +15,10 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final int _marginValue = 20;
+  final double _radiusValue = 8;
+
 
   _item(
-    BuildContext context,
     String? path,
     String hint,
     String btText,
@@ -35,13 +36,14 @@ class _MainAppState extends State<MainApp> {
             padding: const EdgeInsets.only(left: 16.0, right: 16.0,top: 8.0, bottom: 8.0),
             decoration: BoxDecoration(
               color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(8.0),
+              borderRadius: BorderRadius.circular(_radiusValue),
               border: Border.all(color: Colors.grey[300]!),
             ),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
               path ?? hint,
+          
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.normal,
@@ -53,8 +55,9 @@ class _MainAppState extends State<MainApp> {
         const SizedBox(width: 20),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
+            minimumSize: const Size(180, 50),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0), // 设置圆角半径为 8
+              borderRadius: BorderRadius.circular(_radiusValue), // 设置圆角半径为 8
             ),
           ),
           onPressed: onPressed,
@@ -72,7 +75,7 @@ class _MainAppState extends State<MainApp> {
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(_radiusValue),
           border: Border.all(color: Colors.grey[300]!),
         ),
         child: SingleChildScrollView(
@@ -90,7 +93,7 @@ class _MainAppState extends State<MainApp> {
     );
   }
 
-  _margin(int value) {
+  _marginTop(int value) {
     return SizedBox(height: value.toDouble());
   }
 
@@ -107,42 +110,39 @@ class _MainAppState extends State<MainApp> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   _item(
-                    context,
                     widget.viewModel.selectedJsonPath,
                     'JSON文件未选择',
                     '选择JSON文件',
                     () => widget.viewModel.selectJsonFile(),
                   ),
-                  _margin(_marginValue),
+                  _marginTop(_marginValue),
                   _item(
-                    context,
                     widget.viewModel.selectedExcelPath,
                     'Excel文件未选择',
                     '选择Excel文件',
                     () => widget.viewModel.selectExcelFile(),
                   ),
-                  _margin(_marginValue),
+                  _marginTop(_marginValue),
                   _item(
-                    context,
                     widget.viewModel.selectedXmlFolderPath,
                     '模块文件夹未选择',
                     '选择模块文件夹',
                     () => widget.viewModel.selectFolder(),
                   ),
-                  _margin(_marginValue),
+                  _marginTop(_marginValue),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 50),
+                      minimumSize: Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0), // 设置圆角半径为 8
+                        borderRadius: BorderRadius.circular(_radiusValue), // 设置圆角半径为 8
                       ),
                     ),
                     onPressed: () {
                       // 这里可以添加处理按钮点击的逻辑
                     },
-                    child: const Text('开始转换'),
+                    child: Text('开始转换'),
                   ),
-                  _margin(40),
+                  _marginTop(40),
                   // 日志输出
                   _logText(),
                 ],
